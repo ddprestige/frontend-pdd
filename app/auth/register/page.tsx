@@ -17,7 +17,7 @@ const Register = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        router.push('/auth/login');
+        router.push('https://api.prestigedreamdecor.in/auth/login');
       } else {
         setError(data.message || 'Registration failed');
       }

@@ -30,13 +30,13 @@ const AdminPage = () => {
           credentials: 'include',
         });
         if (!res.ok) {
-          router.push('/auth/login');
+          router.push('https://api.prestigedreamdecor.in/auth/login');
         } else {
           await fetchProducts(); // Only fetch if authenticated
           setLoading(false);
         }
       } catch (err) {
-        router.push('/auth/login');
+        router.push('https://api.prestigedreamdecor.in/auth/login');
       }
     };
     checkAuthAndFetch();
@@ -48,13 +48,13 @@ const AdminPage = () => {
 
   const handleLogout = async () => {
   try {
-    const res = await fetch('http://localhost:5000/api/auth/logout', {
+    const res = await fetch('https://api.prestigedreamdecor.in/api/auth/logout', {
       method: 'POST',
       credentials: 'include',
     });
 
     if (res.ok) {
-      router.push('/auth/login');
+      router.push('https://api.prestigedreamdecor.in/auth/login');
     } else {
       console.error('Logout failed');
     }
@@ -77,8 +77,8 @@ const AdminPage = () => {
     if (imageFile) data.append('image', imageFile);
 
     const url = editingProduct
-      ? `http://localhost:5000/api/products/update/${editingProduct._id}`
-      : 'http://localhost:5000/api/products/add';
+      ? `https://api.prestigedreamdecor.in/api/products/update/${editingProduct._id}`
+      : 'https://api.prestigedreamdecor.in/api/products/add';
 
     const method = editingProduct ? 'PUT' : 'POST';
 
@@ -108,7 +108,7 @@ const AdminPage = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/products/delete/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://api.prestigedreamdecor.in/api/products/delete/${id}`, { method: 'DELETE' });
       const result = await res.json();
       if (res.ok) {
         setMessage({ type: 'success', text: '✅ Product deleted successfully!' });
@@ -123,7 +123,7 @@ const AdminPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/products/display');
+      const res = await fetch('https://api.prestigedreamdecor.in/api/products/display');
       const data: Product[] = await res.json();
       if (res.ok) setUploadedProducts(data);
       else throw new Error('Failed to fetch products');

@@ -18,7 +18,7 @@ const Login = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        router.push('/admin');
+        router.push('https://api.prestigedreamdecor.in/admin');
       } else {
         setError(data.message || 'Login failed');
       }
