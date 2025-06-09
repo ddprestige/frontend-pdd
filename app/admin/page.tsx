@@ -26,7 +26,7 @@ const AdminPage = () => {
   useEffect(() => {
     const checkAuthAndFetch = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/auth/me', {
+        const res = await fetch('https://api.prestigedreamdecor.in/api/auth/me', {
           credentials: 'include',
         });
         if (!res.ok) {

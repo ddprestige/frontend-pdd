@@ -13,7 +13,7 @@ const Services: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products/display')
+    fetch('https://api.prestigedreamdecor.in/api/products/display')
       .then((res) => {
         if (!res.ok) throw new Error('Network response was not ok')
         return res.json()

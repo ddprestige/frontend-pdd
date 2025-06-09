@@ -13,7 +13,7 @@ const Cart = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('http://localhost:5000/api/cart', {
+        const res = await fetch('https://api.prestigedreamdecor.in/api/cart', {
           credentials: 'include',
         });
 
