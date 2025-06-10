@@ -30,13 +30,13 @@ const AdminPage = () => {
           credentials: 'include',
         });
         if (!res.ok) {
-          router.push('https://api.prestigedreamdecor.in/auth/login');
+          router.push('/auth/login');
         } else {
           await fetchProducts(); // Only fetch if authenticated
           setLoading(false);
         }
       } catch (err) {
-        router.push('https://api.prestigedreamdecor.in/auth/login');
+        router.push('/auth/login');
       }
     };
     checkAuthAndFetch();
@@ -54,7 +54,7 @@ const AdminPage = () => {
     });
 
     if (res.ok) {
-      router.push('https://api.prestigedreamdecor.in/auth/login');
+      router.push('/auth/login');
     } else {
       console.error('Logout failed');
     }
