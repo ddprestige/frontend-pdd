@@ -38,7 +38,7 @@ const Card: React.FC<CardProps> = ({ img, header, description, productId }) => {
     localStorage.setItem('bookedProduct', JSON.stringify(data))
 
     try {
-      const res = await fetch('http://localhost:5000/api/notify', {
+      const res = await fetch('https://api.prestigedreamdecor.in/api/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
