@@ -3,16 +3,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
-
   const { pathname } = request.nextUrl;
 
-  // If not authenticated and trying to access /admin, redirect to login
+  // 🚫 If trying to access /admin but no token -> redirect to login
   if (pathname.startsWith('/admin') && !token) {
     return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 
-  // Optional: prevent logged-in users from accessing /auth pages
-  if (pathname.startsWith('/auth') && token) {
+  // 🔒 If logged in and trying to access /auth pages -> redirect to /admin
+  if ((pathname.startsWith('/auth/login') || pathname.startsWith('/auth/register')) && token) {
     return NextResponse.redirect(new URL('/admin', request.url));
   }
 

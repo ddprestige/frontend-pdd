@@ -23,24 +23,26 @@ const AdminPage = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   // ✅ First check authentication
-  useEffect(() => {
-    const checkAuthAndFetch = async () => {
-      try {
-        const res = await fetch('https://api.prestigedreamdecor.in/api/auth/me', {
-          credentials: 'include',
-        });
-        if (!res.ok) {
-          router.push('/auth/login');
-        } else {
-          await fetchProducts(); // Only fetch if authenticated
-          setLoading(false);
-        }
-      } catch (err) {
-        router.push('/auth/login');
+useEffect(() => {
+  const checkAuthAndFetch = async () => {
+    try {
+      const res = await fetch('https://api.prestigedreamdecor.in/api/auth/me', {
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        router.push('/auth/login'); // ✅ Redirect to login if not authenticated
+      } else {
+        await fetchProducts();
+        setLoading(false);
       }
-    };
-    checkAuthAndFetch();
-  }, []);
+    } catch (err) {
+      router.push('/auth/login'); // ✅ Also handle errors by redirecting to login
+    }
+  };
+
+  checkAuthAndFetch();
+}, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
