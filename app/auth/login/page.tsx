@@ -7,25 +7,27 @@ const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('https://api.prestigedreamdecor.in/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-        credentials: 'include', // if using cookies
-      });
-      const data = await res.json();
-      if (res.ok) {
-        router.push('https://www.prestigedreamdecor.in/admin');
-      } else {
-        setError(data.message || 'Login failed');
-      }
-    } catch (err) {
-      setError((err as Error).message);
+ const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const res = await fetch('https://api.prestigedreamdecor.in/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+      credentials: 'include',
+    });
+    const data = await res.json();
+    if (res.ok) {
+      console.log("Login successful"); // ✅ For debugging
+      router.push('/admin'); // ✅ FIXED: Navigate to frontend /admin
+    } else {
+      setError(data.message || 'Login failed');
     }
-  };
+  } catch (err) {
+    setError((err as Error).message);
+  }
+};
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border rounded">

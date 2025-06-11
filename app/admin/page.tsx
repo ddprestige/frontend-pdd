@@ -31,13 +31,13 @@ useEffect(() => {
       });
 
       if (!res.ok) {
-        router.push('/auth/login'); // ✅ Redirect to login if not authenticated
+        router.push('/auth/login'); 
       } else {
         await fetchProducts();
         setLoading(false);
       }
     } catch (err) {
-      router.push('/auth/login'); // ✅ Also handle errors by redirecting to login
+      router.push('/auth/login');
     }
   };
 
