@@ -19,7 +19,8 @@ const Login = () => {
     const data = await res.json();
     if (res.ok) {
       console.log("Login successful"); // ✅ For debugging
-      router.push('/admin'); // ✅ FIXED: Navigate to frontend /admin
+      window.location.href = 'https://prestigedreamdecor.in/admin';
+
     } else {
       setError(data.message || 'Login failed');
     }
