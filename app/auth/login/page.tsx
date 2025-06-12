@@ -25,8 +25,7 @@ const Login = () => {
 
       if (res.ok) {
         console.log('✅ Login successful');
-        // Prefer router.push for SPA-like redirect
-        router.push('/admin'); // assuming /admin is a valid frontend route
+        router.push('/admin/dashboard'); 
       } else {
         setError(data.message || 'Login failed');
       }

@@ -109,6 +109,7 @@ useEffect(() => {
   };
 
   const handleDelete = async (id: string) => {
+    
     try {
       const res = await fetch(`https://api.prestigedreamdecor.in/api/products/delete/${id}`, { method: 'DELETE' });
       const result = await res.json();
@@ -145,7 +146,12 @@ useEffect(() => {
 
 
   if (loading) {
-    return <div className="text-center mt-10">Loading...</div>;
+   return (
+  <div className="flex justify-center items-center h-screen">
+    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-black"></div>
+  </div>
+);
+
   }
 
   return (
