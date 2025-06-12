@@ -6,41 +6,66 @@ const Login = () => {
   const router = useRouter();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
- const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const res = await fetch('https://api.prestigedreamdecor.in/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-      credentials: 'include',
-    });
-    const data = await res.json();
-    if (res.ok) {
-      console.log("Login successful"); // ✅ For debugging
-      window.location.href = 'https://prestigedreamdecor.in/admin';
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
-    } else {
-      setError(data.message || 'Login failed');
+    try {
+      const res = await fetch('https://api.prestigedreamdecor.in/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+        credentials: 'include', // important for cookie
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log('✅ Login successful');
+        // Prefer router.push for SPA-like redirect
+        router.push('/admin'); // assuming /admin is a valid frontend route
+      } else {
+        setError(data.message || 'Login failed');
+      }
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    setError((err as Error).message);
-  }
-};
-
+  };
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border rounded">
       <h2 className="text-xl font-bold mb-4">Login</h2>
       <form onSubmit={handleLogin} className="space-y-4">
-        <input type="email" name="email" value={form.email}
+        <input
+          type="email"
+          name="email"
+          value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
-          placeholder="Email" className="w-full p-2 border rounded" required />
-        <input type="password" name="password" value={form.password}
+          placeholder="Email"
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
-          placeholder="Password" className="w-full p-2 border rounded" required />
-        <button className="w-full bg-black text-white py-2 rounded">Login</button>
+          placeholder="Password"
+          className="w-full p-2 border rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-black text-white py-2 rounded"
+          disabled={loading}
+        >
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
         {error && <p className="text-red-500">{error}</p>}
       </form>
     </div>
